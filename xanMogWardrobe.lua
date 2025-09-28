@@ -369,7 +369,7 @@ function addon:SetupMogFrame()
 		local slot = CreateFrame("ItemButton", "test"..MAINHANDSLOT_ENCHANT, addonFrame.frame)
 		slot:SetHeight(20)
 		slot:SetWidth(20)
-		slot:SetNormalTexture(nil) --get rid of that tooltip border
+		--slot:SetNormalTexture(nil) --get rid of that tooltip border
 		if i == MAINHANDSLOT_ENCHANT then
 			slot:SetPoint("CENTER", addonFrame.itemSlots[16], "CENTER", 0, -33) --mainhand
 		else
@@ -391,7 +391,7 @@ function addon:SetupMogFrame()
 	--model:SetModelScale(1)
 	model:SetPosition(0,0,0)
 	model.defaultPosX, model.defaultPosY, model.defaultPosZ, model.yaw = 0, 0, 0, 0
-	model:SetLight(true, false, -1, 0, 0, .7, .7, .7, .7, .6, 1, 1, 1)
+	--model:SetLight(true, false, -1, 0, 0, .7, .7, .7, .7, .6, 1, 1, 1)
 	addonFrame.model = model
 
 	--set the pan and zoom limits
@@ -801,6 +801,16 @@ end
 function addon:LoadInspectedCharacter()
 	local itemPool = {}
 	
+	--C_TransmogCollection.GetItemInfo
+	
+	
+	--DressUpItemTransmogInfoList(C_TransmogCollection.GetInspectItemTransmogInfoList());
+	
+	-- for slotID, itemTransmogInfo in ipairs(itemTransmogInfoList) do
+		-- local ignoreChildItems = slotID ~= INVSLOT_MAINHAND;
+		-- playerActor:SetItemTransmogInfo(itemTransmogInfo, slotID, ignoreChildItems);
+	-- end
+	
 	local inspectSlots, mainHandEnchant, offHandEnchant = C_TransmogCollection.GetInspectSources()
 	if not inspectSlots then return end
 
@@ -902,6 +912,6 @@ function addon:EnableAddon()
 		addon.WardrobeFrame:Show()
 	end
 	
-	local ver = GetAddOnMetadata(ADDON_NAME,"Version") or '1.0'
+	local ver = C_AddOns.GetAddOnMetadata(ADDON_NAME,"Version") or '1.0'
 	DEFAULT_CHAT_FRAME:AddMessage(string.format("|cFF99CC33%s|r [v|cFF20ff20%s|r] loaded:   /xmw", ADDON_NAME, ver or "1.0"))
 end
